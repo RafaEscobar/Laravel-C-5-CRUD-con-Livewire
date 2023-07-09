@@ -7,7 +7,9 @@ use Livewire\Component;
 
 class Posts extends Component
 {
-    public $search, $element = 'id', $ord = 'asc';
+    public $search, $element = 'id', $ord = 'desc';
+
+    protected $listeners = ['createPost' => 'render'];
 
     public function render()
     {
@@ -31,4 +33,5 @@ class Posts extends Component
             $this->ord = 'asc';
         }
     }
+
 }
