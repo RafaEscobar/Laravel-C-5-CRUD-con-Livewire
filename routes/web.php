@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Livewire\ModalsModalOne;
+use App\Http\Livewire\Posts;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,5 +23,5 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('prueba/{name}', ModalsModalOne::class);
+    Route::get('prueba/{name}', Posts::class);
 });

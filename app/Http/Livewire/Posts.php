@@ -5,9 +5,8 @@ namespace App\Http\Livewire;
 use App\Models\Post;
 use Livewire\Component;
 
-class ModalsModalOne extends Component
+class Posts extends Component
 {
-
     public $search, $element = 'id', $ord = 'asc';
 
     public function render()
@@ -16,7 +15,7 @@ class ModalsModalOne extends Component
                         ->orWhere('tag', 'like', '%' . $this->search . '%')
                         ->orderBy($this->element, $this->ord)
                         ->get();
-        return view('livewire.modals-modal-one', compact('posts'));
+        return view('livewire.posts', compact('posts'));
     }
 
     public function order($element)

@@ -2,8 +2,9 @@
     <div class="w-full mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
         <header class="px-5 py-4 border-b border-gray-100 flex">
             <h2 class="font-semibold text-gray-800">Posts</h2>
-            <div class="w-full flex justify-end">
-                <x-input type="text" placeholder="Ingrese un nombre de post" wire:model="search" />
+            <div class="w-full flex justify-end items-center">
+                <x-input type="text" placeholder="Ingrese un nombre de post" wire:model="search" class="mr-4" />
+                @livewire('form-create-post')
             </div>
         </header>
         <div class="p-3">
@@ -14,7 +15,7 @@
                             <tr class="">
                                 <th class="p-2">
                                     <div class="flex cursor-pointer" wire:click="order('title')">
-                                        <div class=" font-semibold text-left"  >Titulo</div>
+                                        <div class=" font-semibold text-left">Titulo</div>
                                         <x-icon-filter colum="title" :element="$element" :ord="$ord" />
                                     </div>
                                 </th>
@@ -26,13 +27,13 @@
                                 </th>
                                 <th class="p-2">
                                     <div class="flex cursor-pointer" wire:click="order('tag')">
-                                        <div class="font-semibold text-left"  >Genero</div>
+                                        <div class="font-semibold text-left">Genero</div>
                                         <x-icon-filter colum="tag" :element="$element" :ord="$ord" />
                                     </div>
                                 </th>
                                 <th class="p-2">
                                     <div class="flex cursor-pointer" wire:click="order('ranking')">
-                                        <div class="font-semibold text-cente" >Valoración</div>
+                                        <div class="font-semibold text-cente">Valoración</div>
                                         <x-icon-filter colum="ranking" :element="$element" :ord="$ord" />
                                     </div>
                                 </th>
@@ -40,7 +41,7 @@
                         </thead>
                         <tbody class="text-sm divide-y divide-gray-100">
                             @foreach ($posts as $post)
-                                <tr> 
+                                <tr>
                                     <td class="p-2">
                                         <div class="text-left">{{ $post->title }}</div>
                                     </td>
@@ -60,9 +61,8 @@
                 @else
                     <div>
                         <p class="text-md font-light text-red-700">No se encontraron coincidencias.</p>
-                    </div>                    
+                    </div>
                 @endif
-
             </div>
         </div>
     </div>

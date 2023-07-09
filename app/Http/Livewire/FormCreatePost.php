@@ -4,13 +4,10 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 
-class TitleOne extends Component
+class FormCreatePost extends Component
 {
-
-    public $precio;
-
     public function render()
     {
-        return view('livewire.title-one');
+        return view('livewire.form-create-post');
     }
 }
