@@ -8,16 +8,28 @@ use Livewire\Component;
 class ModalsModalOne extends Component
 {
 
-    public $despedida, $saludo, $name;
-
-    public function mount($posdata = '')
-    {
-        $this->despedida = $posdata;
-    }
+    public $search, $element = 'id', $ord = 'asc';
 
     public function render()
     {
-        $posts = Post::all();
+        $posts = Post::where('title', 'like', '%' . $this->search . '%')
+                        ->orWhere('tag', 'like', '%' . $this->search . '%')
+                        ->orderBy($this->element, $this->ord)
+                        ->get();
         return view('livewire.modals-modal-one', compact('posts'));
+    }
+
+    public function order($element)
+    {
+        if ($this->element == $element) {
+            if ($this->ord == 'desc') {
+                $this->ord = 'asc';
+            } else {
+                $this->ord = 'desc';
+            }
+        } else {
+            $this->element = $element;
+            $this->ord = 'asc';
+        }
     }
 }
