@@ -7,6 +7,11 @@
                 @livewire('form-create-post')
             </div>
         </header>
+        @if (!empty($message))    
+            <div>
+                <p class="ml-4 text-green-600 font-semibold">{{$message}}</p>
+            </div>
+        @endif
         <div class="p-3">
             <div class="overflow-x-auto">
                 @if ($posts->count())
