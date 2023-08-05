@@ -32,9 +32,12 @@
             <x-button class="mr-4" wire:click="$set('openModal', false)">
                 Cancelar
             </x-button>
-            <x-secondary-button wire:click="create">
+            <x-secondary-button wire:click="create" wire:loading.remove wire:target="create">
                 Guardar
             </x-secondary-button>
+            <div class="flex justify-center items-center">
+                <span class="text-green-500 font-semibold ml-2" wire:loading wire:target="create">Cargando...</span>
+            </div>
         </x-slot>
     </x-dialog-modal>
 </div>

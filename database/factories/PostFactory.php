@@ -21,6 +21,7 @@ class PostFactory extends Factory
             'description' => fake()->paragraph(),
             'tag' => fake()->sentence(1),
             'ranking' => fake()->numberBetween(1, 10),
+            'image' => 'posts/' . fake()->image('public/storage/posts', 640, 480, null, false),
         ];
     }
 }

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('description');
             $table->string('tag');
             $table->tinyInteger('ranking');
+            $table->string('image');
             $table->timestamps();
         });
     }
