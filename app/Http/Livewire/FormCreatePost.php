@@ -4,50 +4,84 @@ namespace App\Http\Livewire;
 
 use App\Models\Post;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class FormCreatePost extends Component
 {
+    //* Usos 
+    use WithFileUploads;
 
+    //* Variables generales
     public $openModal = false;
-    public $title, $description, $tag, $ranking;
+    //* Campos del formulario
+    public $title;
+    public $description;
+    public $tag;
+    public $ranking;
+    public $image;
+    public $resetInputFile;
 
+    public function mount()
+    {
+        $this->resetInputFile = rand();
+    }
+
+    //* Reglas de validación
     protected $rules = [
         'title' => 'required|max:15',
         'description' => 'required|min:30',
         'tag' => 'required',
-        'ranking' => 'required'
+        'ranking' => 'required',
+        'image' => 'required|image|max:2048'
     ];
 
+    //* Mensajes de validación
     protected $messages = [
         '*.required' => 'El campo es requerido',
         'title.max' => 'El titulo debe tener como maximo 10 caracteres',
         'description.min' => 'La descripción debe tener como minimo 30 caracteres',
+        'image.image' => 'El archivo cargado no es una imagen',
+        'image.max' => 'El tamaño maximo de la imagen es de 2mb'
     ];
     
-    public function updated($property){
+    //? Funciona como el updatedNomVariable - pero para cualquier variable
+    //* Valida cualquier variable-campo que haya sufra un cambio
+    public function updated($property)
+    {
+        //! El campo en cuestion se pasa por parametro
         $this->validateOnly($property);
+    }
+    
+    //* Generamos el registro en base de datos
+    public function create() 
+    {
+        //! Validamos todos los campos una ves se de click en guardar el registro
+        $this->validate();
+
+        $image = $this->image->store('posts/');
+
+        //! Generamos el registro
+        Post::create([
+            'title' => $this->title,
+            'description' => $this->description,
+            'tag' => $this->tag,
+            'ranking' => $this->ranking,
+            'image' => $image
+        ]);
+        
+        //! Reseteamos el valor de las variables a su estado original
+        $this->reset(['openModal', 'title', 'description', 'tag', 'ranking', 'image']);
+        $this->resetInputFile = rand();
+
+        //! Emitimos el evento createPost
+        $this->emit('createPost');
+
+        //! Emitimos una alerta con un mensaje dado
+        $this->emit('alert', 'Registro generado exitosamente!!!');
     }
 
     public function render()
     {
         return view('livewire.form-create-post');
-    }
-    
-    public function create() 
-    {
-
-        $this->validate();
-
-        Post::create([
-            'title' => $this->title,
-            'description' => $this->description,
-            'tag' => $this->tag,
-            'ranking' => $this->ranking
-        ]);
-        
-        $this->reset(['openModal', 'title', 'description', 'tag', 'ranking']);
-
-        $this->emit('createPost');
-        $this->emit('alert', 'Registro generado exitosamente!!!');
     }
 }
