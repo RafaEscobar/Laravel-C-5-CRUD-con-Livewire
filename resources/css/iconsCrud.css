@@ -1,0 +1,11 @@
+.icon-edit{
+    @apply cursor-pointer hover:fill-green-300;
+}
+
+.icon-show{
+    @apply cursor-pointer hover:fill-blue-400;
+}
+
+.icon-red{
+    @apply cursor-pointer hover:fill-red-500;
+}

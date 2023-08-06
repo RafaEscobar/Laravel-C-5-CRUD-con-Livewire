@@ -42,6 +42,9 @@
                                         <x-icon-filter colum="ranking" :element="$element" :ord="$ord" />
                                     </div>
                                 </th>
+                                <th class="p-2">
+                                    <div class="font-semibold text-cente">Opciones</div>
+                                </th>
                             </tr>
                         </thead>
                         <tbody class="text-sm divide-y divide-gray-100">
@@ -58,6 +61,9 @@
                                     </td>
                                     <td class="p-2">
                                         <div class="text-lg text-center">{{ $post->ranking }}</div>
+                                    </td>
+                                    <td class="p-2">
+                                        @livewire('edit-post', ['post' => $post], key($post->id))
                                     </td>
                                 </tr>
                             @endforeach

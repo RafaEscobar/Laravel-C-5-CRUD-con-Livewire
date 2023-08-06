@@ -1,4 +1,5 @@
 import './bootstrap';
+import './alertSuccess';
 
 import Alpine from 'alpinejs';
 import focus from '@alpinejs/focus';
