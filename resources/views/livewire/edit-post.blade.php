@@ -4,7 +4,6 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
         </svg>          
     </span>
-
     <x-dialog-modal wire:model="openModal">
         <x-slot name="title">
             <span>Editar post</span>
@@ -13,28 +12,28 @@
             <div class="my-4">
                 <x-label value="Ingresa el titulo del post" />
                 <x-input type="text" class="w-full mt-2" wire:model="post.title"/>
+                <x-input-error for="post.title" />
             </div>
-            <x-input-error for="title" />
             <div class="my-4">
                 <x-label value="Ingresa el contenido del post" />
                 <x-text-area class="mt-2" wire:model="post.description"/>
+                <x-input-error for="post.description" />
             </div>
-            <x-input-error for="description" />
             <div class="my-4">
                 <x-label value="Ingresa la categoria del post" />
                 <x-input type="text" class="w-full mt-2" wire:model="post.tag"/>
+                <x-input-error for="post.tag" />
             </div>
-            <x-input-error for="tag" />
             <div class="my-4">
                 <x-label value="Ingresa la puntuación dada" />
                 <x-input type="number" class="w-full mt-2" max="10" min="0" wire:model="post.ranking" />
+                <x-input-error for="post.ranking" />
             </div>
-            <x-input-error for="ranking" />
             <div class="my-4">
                 <x-label value="Carga la portada de tu publicación" />
-                <x-input type="file" class="w-full mt-2" id="{{$resetInputFile}}" max="10" min="0" wire:model="image" />
+                <x-input type="file" class="w-full mt-2" id="{{$resetInputFile}}" wire:model="image" />
+                <x-input-error for="image" />
             </div>
-            <x-input-error for="image" />
             <div class="my-4 flex flex-col justify-center">
                 <div class="mb-4" wire:loading wire:target="image">
                     <div class="text-center">
@@ -57,7 +56,12 @@
             </div>
         </x-slot>
         <x-slot name="footer">
-
+            <x-button class="mr-4" wire:click="$set('openModal', false)">
+                Cancelar
+            </x-button>
+            <x-secondary-button wire:click="save" wire:loading.attr="disabled" wire:target="save, image">
+                Guardar
+            </x-secondary-button>
         </x-slot>
     </x-dialog-modal>
 </div>

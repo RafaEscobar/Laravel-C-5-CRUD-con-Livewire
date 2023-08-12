@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Post;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -28,6 +29,15 @@ class EditPost extends Component
         'post.ranking' => 'required',
     ];
 
+    //* Mensajes de validación
+    protected $messages = [
+        'post.*.required' => 'El campo es requerido',
+        'post.title.max' => 'El titulo debe tener como maximo 10 caracteres',
+        'post.description.min' => 'La descripción debe tener como minimo 30 caracteres',
+        'image.image' => 'El archivo cargado no es una imagen',
+        'image.max' => 'El tamaño maximo de la imagen es de 2mb'
+    ];
+
     public function updated($field)
     {
         $this->validateOnly($field);
@@ -35,31 +45,28 @@ class EditPost extends Component
 
     public function save()
     {
+        //! Validamos todos los campos una ves se de click en guardar el registro
         $this->validate();
 
-        $image = $this->image->store('posts/');
+        //! Almacenamos la imagen en el disco publico en /posts
+        if ( $this->image ) {
+            Storage::delete(([$this->post->image]));
+            $this->post->image = $this->image->store('public/posts');
+        }
 
         //! Generamos el registro
-        Post::create([
-            'title' => $this->title,
-            'description' => $this->description,
-            'tag' => $this->tag,
-            'ranking' => $this->ranking,
-            'image' => $image
-        ]);
+        $this->post->save();
         
         //! Reseteamos el valor de las variables a su estado original
-        $this->reset(['openModal', 'title', 'description', 'tag', 'ranking', 'image']);
+        $this->reset(['openModal', 'image']);
         $this->resetInputFile = rand();
 
         //! Emitimos el evento createPost
         $this->emit('createPost');
 
         //! Emitimos una alerta con un mensaje dado
-        $this->emit('alert', 'Registro generado exitosamente!!!');
-
+        $this->emit('alert', 'Registro actualizado exitosamente!!!');
     }
-
 
     public function render()
     {
