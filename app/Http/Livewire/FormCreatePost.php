@@ -46,10 +46,10 @@ class FormCreatePost extends Component
     
     //? Funciona como el updatedNomVariable - pero para cualquier variable
     //* Valida cualquier variable-campo que haya sufra un cambio
-    public function updated($property)
+    public function updated($field)
     {
         //! El campo en cuestion se pasa por parametro
-        $this->validateOnly($property);
+        $this->validateOnly($field);
     }
     
     //* Generamos el registro en base de datos
@@ -58,7 +58,8 @@ class FormCreatePost extends Component
         //! Validamos todos los campos una ves se de click en guardar el registro
         $this->validate();
 
-        $image = $this->image->store('posts/');
+        //! Almacenamos la imagen en el disco publico en /posts
+        $image = $this->image->store('public/posts');
 
         //! Generamos el registro
         Post::create([

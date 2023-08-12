@@ -7,7 +7,7 @@
 
     <x-dialog-modal wire:model="openModal">
         <x-slot name="title">
-            <span>Editando el post: {{$post->title}}</span>
+            <span>Editar post</span>
         </x-slot>
         <x-slot name="content">
             <div class="my-4">
@@ -38,7 +38,7 @@
             <div class="my-4 flex flex-col justify-center">
                 <div class="mb-4" wire:loading wire:target="image">
                     <div class="text-center">
-                        <span class="text-lg font-medium">Cargando imagen...</span>
+                        <span class="text-lg font-medium">Cargando nueva imagen...</span>
                     </div>
                     <div class="flex justify-center mt-4">
                         <span class="inline-block animate-spin" >
