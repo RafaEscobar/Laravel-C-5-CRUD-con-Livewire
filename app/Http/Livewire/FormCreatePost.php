@@ -75,7 +75,7 @@ class FormCreatePost extends Component
         $this->resetInputFile = rand();
 
         //! Emitimos el evento createPost
-        $this->emit('createPost');
+        $this->emit('mount');
 
         //! Emitimos una alerta con un mensaje dado
         $this->emit('alert', 'Registro generado exitosamente!!!');

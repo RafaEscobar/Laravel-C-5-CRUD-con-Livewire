@@ -62,8 +62,9 @@
                                     <td class="p-2">
                                         <div class="text-lg text-center">{{ $item->ranking }}</div>
                                     </td>
+                                    {{--! 10  --}}
                                     <td class="p-2">
-                                        <span wire:click="edit({{$item}})">
+                                        <span wire:click="openEdit({{$item}})">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 icon-edit">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
                                             </svg>          
@@ -81,7 +82,7 @@
             </div>
         </div>
     </div>
-    {{--! 3 --}}
+    {{--! 11 --}}
     <x-dialog-modal wire:model="openModalEdit">
         <x-slot name="title">
             <span>Editar post</span>
@@ -126,10 +127,13 @@
                         </span>
                     </div>
                 </div>
-                @if ($image)
-                    <img src="{{$image->temporaryUrl()}}">
-                @else 
-                    <img src="{{Storage::url($post->image)}}" >
+                {{--! 12  --}}
+                @if ($post)
+                    @if ($image)
+                        <img src="{{$image->temporaryUrl()}}">
+                    @else 
+                        <img src="{{Storage::url($post->image)}}" >
+                    @endif
                 @endif
             </div>
         </x-slot>
@@ -137,7 +141,8 @@
             <x-button class="mr-4" wire:click="$set('openModalEdit', false)">
                 Cancelar
             </x-button>
-            <x-secondary-button wire:click="save" wire:loading.attr="disabled" wire:target="save, image">
+            {{--! 13 --}}
+            <x-secondary-button wire:click="update" wire:loading.attr="disabled" wire:target="save, image">
                 Guardar
             </x-secondary-button>
         </x-slot>
