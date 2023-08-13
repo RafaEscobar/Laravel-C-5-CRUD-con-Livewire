@@ -143,7 +143,7 @@
             </x-button>
             {{--! 13 --}}
             <x-secondary-button wire:click="update" wire:loading.attr="disabled" wire:target="save, image">
-                Guardar
+                Actualizar
             </x-secondary-button>
         </x-slot>
     </x-dialog-modal>

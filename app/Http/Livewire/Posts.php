@@ -67,7 +67,7 @@ class Posts extends Component
     }
 
     //!7 Reglas, mensajes y validacion en tiempo real
-    protected $rules = [
+    protected $rules = [ 
         'post.title' => 'required|max:15',
         'post.description' => 'required|min:30',
         'post.tag' => 'required',
