@@ -3,35 +3,36 @@
 namespace App\Http\Livewire;
 
 use App\Models\Post;
+
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Livewire\WithPagination;
 
 class Posts extends Component
 {
     use WithFileUploads;
+    use WithPagination;
 
     public $search;
     public $element;
     public $ord;
     public $posts;
-    //!1
+    public $post_links;
     public $post;
     public $openModalEdit;
     public $resetInputFile;
     public $image;
 
-    //!2
     protected $listeners = ['mount'];
 
-    //!3
     public function mount()
     {
         $this->element = 'id';
         $this->ord = 'desc';
         $this->openModalEdit = false;
         $this->resetInputFile = rand();
-        $this->generateContent();
+        // $this->generateContent();
     }
     
     public function updatedSearch()
@@ -39,12 +40,12 @@ class Posts extends Component
         $this->generateContent();
     }
 
-    //!4
     public function generateContent(){
-        $this->posts = Post::where('title', 'like', "%$this->search%")->orWhere('tag', 'like', "%$this->search%")->orderBy($this->element, $this->ord)->get();
+        $myQueryPosts = Post::where('title', 'like', "%$this->search%")->orWhere('tag', 'like', "%$this->search%")->orderBy($this->element, $this->ord)->paginate(10);
+        $this->post_links = $myQueryPosts;
+        $this->posts = collect($myQueryPosts->items());
     }
 
-    //!5
     public function render()
     {
         return view('livewire.posts');
@@ -62,11 +63,9 @@ class Posts extends Component
             $this->element = $element;
             $this->ord = 'asc';
         }
-        //!6
         $this->generateContent();
     }
 
-    //!7 Reglas, mensajes y validacion en tiempo real
     protected $rules = [ 
         'post.title' => 'required|max:15',
         'post.description' => 'required|min:30',
@@ -87,14 +86,12 @@ class Posts extends Component
         $this->validateOnly($field);
     }
 
-    //!8
     public function openEdit(Post $post)
     {
         $this->post = $post;
         $this->openModalEdit = true; 
     }
 
-    //! 9
     public function update()
     {
         $this->validate();

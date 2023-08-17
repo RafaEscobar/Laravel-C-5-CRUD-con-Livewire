@@ -62,7 +62,6 @@
                                     <td class="p-2">
                                         <div class="text-lg text-center">{{ $item->ranking }}</div>
                                     </td>
-                                    {{--! 10  --}}
                                     <td class="p-2">
                                         <span wire:click="openEdit({{$item}})">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 icon-edit">
@@ -73,6 +72,9 @@
                                 </tr>
                             @endforeach
                         </tbody>
+                        <div class="">
+                            {{-- <p>{{$post_links->links()}}</p> --}}
+                        </div>
                     </table>
                 @else
                     <div>
@@ -82,7 +84,6 @@
             </div>
         </div>
     </div>
-    {{--! 11 --}}
     <x-dialog-modal wire:model="openModalEdit">
         <x-slot name="title">
             <span>Editar post</span>
