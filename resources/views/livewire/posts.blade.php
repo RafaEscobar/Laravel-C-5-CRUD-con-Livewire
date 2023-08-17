@@ -73,9 +73,11 @@
                             @endforeach
                         </tbody>
                     </table>
-                    <div class="">
-                        <p>{{$posts->links()}}</p>
-                    </div>
+                    @if ( $posts->hasPages() )    
+                        <div class="mt-4">
+                            <p>{{$posts->links()}}</p>
+                        </div>
+                    @endif
                 @else
                     <div>
                         <p class="text-md font-light text-red-700">No se encontraron coincidencias.</p>
