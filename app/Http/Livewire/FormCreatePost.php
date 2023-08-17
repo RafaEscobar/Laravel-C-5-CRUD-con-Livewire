@@ -28,7 +28,7 @@ class FormCreatePost extends Component
 
     //* Reglas de validación
     protected $rules = [
-        'title' => 'required|max:15',
+        'title' => 'required|max:30',
         'description' => 'required|min:30',
         'tag' => 'required',
         'ranking' => 'required',

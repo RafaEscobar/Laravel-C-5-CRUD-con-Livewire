@@ -17,7 +17,7 @@ class Posts extends Component
     public $search;
     public $element;
     public $ord;
-    public $posts;
+    protected $posts;
     public $post_links;
     public $post;
     public $openModalEdit;
@@ -32,7 +32,6 @@ class Posts extends Component
         $this->ord = 'desc';
         $this->openModalEdit = false;
         $this->resetInputFile = rand();
-        // $this->generateContent();
     }
     
     public function updatedSearch()
@@ -41,14 +40,15 @@ class Posts extends Component
     }
 
     public function generateContent(){
-        $myQueryPosts = Post::where('title', 'like', "%$this->search%")->orWhere('tag', 'like', "%$this->search%")->orderBy($this->element, $this->ord)->paginate(10);
-        $this->post_links = $myQueryPosts;
-        $this->posts = collect($myQueryPosts->items());
+        $this->posts = Post::where('title', 'like', "%$this->search%")->orWhere('tag', 'like', "%$this->search%")->orderBy($this->element, $this->ord)->paginate(10);
     }
 
     public function render()
     {
-        return view('livewire.posts');
+        $this->generateContent();
+        return view('livewire.posts', [
+            'posts' => $this->posts,
+        ]);
     }
 
     public function order($element)
@@ -67,7 +67,7 @@ class Posts extends Component
     }
 
     protected $rules = [ 
-        'post.title' => 'required|max:15',
+        'post.title' => 'required|max:30',
         'post.description' => 'required|min:30',
         'post.tag' => 'required',
         'post.ranking' => 'required',
