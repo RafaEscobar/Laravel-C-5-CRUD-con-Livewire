@@ -36,6 +36,7 @@ class Posts extends Component
     
     public function updatedSearch()
     {
+        $this->resetPage();
         $this->generateContent();
     }
 

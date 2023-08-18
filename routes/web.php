@@ -25,3 +25,5 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
 
     Route::get('prueba/{name}', Posts::class);
 });
+
+
