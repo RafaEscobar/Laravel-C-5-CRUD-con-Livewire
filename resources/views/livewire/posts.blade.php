@@ -1,7 +1,10 @@
 <div class="w-full bg-slate-400">
     <div class="w-full mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
         <header class="px-5 py-4 border-b border-gray-100 flex">
-            <h2 class="font-semibold text-gray-800">Posts</h2>
+            <div class="flex flex-col w-64">
+                <h2 class="font-semibold text-gray-800 mb-2">Cantidad de registros:</h2>
+                {{Form::select('filters', $filters, 'ten', ['class' => 'rounded-2xl border-gray-400', 'wire:model' => 'filter'])}}
+            </div>
             <div class="w-full flex justify-end items-center">
                 <x-input type="text" placeholder="Ingrese un nombre de post" wire:model="search" class="mr-4" />
                 @livewire('form-create-post')

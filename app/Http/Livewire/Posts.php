@@ -23,6 +23,8 @@ class Posts extends Component
     public $openModalEdit;
     public $resetInputFile;
     public $image;
+    public $filters;
+    public $filter;
 
     protected $listeners = ['mount'];
 
@@ -32,6 +34,18 @@ class Posts extends Component
         $this->ord = 'desc';
         $this->openModalEdit = false;
         $this->resetInputFile = rand();
+        $this->filters = [
+            '10' => '10',
+            '20' => '20',
+            '40' => '40',
+            '50' => '50',
+        ];
+        $this->filter = '10';
+    }
+
+    public function updatedFilter()
+    {
+        $this->generateContent();
     }
     
     public function updatedSearch()
@@ -41,7 +55,7 @@ class Posts extends Component
     }
 
     public function generateContent(){
-        $this->posts = Post::where('title', 'like', "%$this->search%")->orWhere('tag', 'like', "%$this->search%")->orderBy($this->element, $this->ord)->paginate(10);
+        $this->posts = Post::where('title', 'like', "%$this->search%")->orWhere('tag', 'like', "%$this->search%")->orderBy($this->element, $this->ord)->paginate($this->filter);
     }
 
     public function render()
