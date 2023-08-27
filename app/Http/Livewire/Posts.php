@@ -41,7 +41,22 @@ class Posts extends Component
             '50' => '50',
         ];
         $this->filter = '10';
+        $this->search = '';
     }
+
+    public function render()
+    {
+        $this->generateContent();
+        return view('livewire.posts', [
+            'posts' => $this->posts,
+        ]);
+    }
+
+    protected $queryString = [
+        'filter' => ['except' => '10' ],
+        'ord' => ['except' => 'desc' ],
+        'search' => ['except' => '' ],
+    ];
 
     public function updatedFilter()
     {
@@ -56,14 +71,6 @@ class Posts extends Component
 
     public function generateContent(){
         $this->posts = Post::where('title', 'like', "%$this->search%")->orWhere('tag', 'like', "%$this->search%")->orderBy($this->element, $this->ord)->paginate($this->filter);
-    }
-
-    public function render()
-    {
-        $this->generateContent();
-        return view('livewire.posts', [
-            'posts' => $this->posts,
-        ]);
     }
 
     public function order($element)
