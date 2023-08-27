@@ -27,7 +27,7 @@ class Posts extends Component
     public $filter;
     public $readyToLoad;
 
-    protected $listeners = ['mount'];
+    protected $listeners = ['mount', 'delete'];
 
     public function mount()
     {
@@ -143,5 +143,10 @@ class Posts extends Component
         $this->emit('alert', 'Registro actualizado exitosamente!!!');
 
         $this->generateContent();
+    }
+
+    public function delete(Post $post)
+    {
+        $post->delete();
     }
 }

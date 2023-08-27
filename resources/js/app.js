@@ -1,5 +1,6 @@
 import './bootstrap';
 import './alertSuccess';
+import './alertConfirmDelete';
 
 import Alpine from 'alpinejs';
 import focus from '@alpinejs/focus';
