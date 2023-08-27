@@ -1,5 +1,4 @@
 <div class="w-full bg-slate-400" wire:init="loadContent" >
-    @dd("Total: ", count($nose))
     <div class="w-full mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
         <header class="px-5 py-4 border-b border-gray-100 flex">
             <div class="flex flex-col w-64">
