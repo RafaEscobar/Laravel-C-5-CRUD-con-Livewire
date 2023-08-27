@@ -25,6 +25,7 @@ class Posts extends Component
     public $image;
     public $filters;
     public $filter;
+    public $readyToLoad;
 
     protected $listeners = ['mount'];
 
@@ -42,6 +43,7 @@ class Posts extends Component
         ];
         $this->filter = '10';
         $this->search = '';
+        $this->readyToLoad = false; 
     }
 
     public function render()
@@ -58,6 +60,11 @@ class Posts extends Component
         'search' => ['except' => '' ],
     ];
 
+    public function loadContent()
+    {
+        $this->readyToLoad = true;
+    }
+
     public function updatedFilter()
     {
         $this->generateContent();
@@ -69,8 +76,13 @@ class Posts extends Component
         $this->generateContent();
     }
 
-    public function generateContent(){
-        $this->posts = Post::where('title', 'like', "%$this->search%")->orWhere('tag', 'like', "%$this->search%")->orderBy($this->element, $this->ord)->paginate($this->filter);
+    public function generateContent()
+    {
+        if ($this->readyToLoad) {
+            $this->posts = Post::where('title', 'like', "%$this->search%")->orWhere('tag', 'like', "%$this->search%")->orderBy($this->element, $this->ord)->paginate($this->filter);
+        } else {
+            $this->posts = [];
+        }
     }
 
     public function order($element)

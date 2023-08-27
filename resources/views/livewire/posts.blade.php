@@ -1,4 +1,5 @@
-<div class="w-full bg-slate-400">
+<div class="w-full bg-slate-400" wire:init="loadContent" >
+    @dd("Total: ", count($nose))
     <div class="w-full mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
         <header class="px-5 py-4 border-b border-gray-100 flex">
             <div class="flex flex-col w-64">
@@ -10,14 +11,14 @@
                 @livewire('form-create-post')
             </div>
         </header>
-        @if (!empty($message))    
+        @if (!empty($message))
             <div>
                 <p class="ml-4 text-green-600 font-semibold">{{$message}}</p>
             </div>
         @endif
         <div class="p-3">
-            <div class="overflow-x-auto">
-                @if ($posts->count())
+            <div class="">
+                @if ( count($posts) )
                     <table class="table-auto w-full">
                         <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
                             <tr class="">
@@ -82,10 +83,22 @@
                         </div>
                     @endif
                 @else
-                    <div>
-                        <p class="text-md font-light text-red-700">No se encontraron coincidencias.</p>
-                    </div>
+                    @if ($readyToLoad)
+                        <div>
+                            <p class="text-md font-light text-red-700">No se encontraron coincidencias.</p>
+                        </div>
+                    @endif                 
                 @endif
+                <div class="w-full " wire:loading wire:target="loadContent">
+                    <div class="w-full flex justify-center">
+                        <div class="flex flex-col items-center justify-center">
+                            <label class="text-2xl mb-4">Cargando contenido...</label>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-16 h-16 animate-spin">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                            </svg>                          
+                        </div>
+                    </div>
+                </div>                
             </div>
         </div>
     </div>
