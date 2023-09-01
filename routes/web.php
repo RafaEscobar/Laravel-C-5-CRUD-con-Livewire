@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\Count;
 use App\Http\Livewire\Posts;
 use Illuminate\Support\Facades\Route;
 
@@ -23,7 +24,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('prueba/{name}', Posts::class);
+    Route::get('count', Count::class)->name('count');
 });
 
 
