@@ -26,6 +26,11 @@ class FormCreatePost extends Component
         $this->resetInputFile = rand();
     }
 
+    public function render()
+    {
+        return view('livewire.form-create-post');
+    }
+
     //* Reglas de validación
     protected $rules = [
         'title' => 'required|max:30',
@@ -81,8 +86,9 @@ class FormCreatePost extends Component
         $this->emit('alert', 'Registro generado exitosamente!!!');
     }
 
-    public function render()
+    public function updatedOpenModal()
     {
-        return view('livewire.form-create-post');
+        $this->reset(['title', 'description', 'tag', 'ranking', 'image']);
+        $this->resetInputFile = rand();
     }
 }
